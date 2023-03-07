@@ -2,6 +2,22 @@
 import java.util.Scanner;
 
 public class Game {
+
+    /* 
+    I think your game is super cool!!! but... I freaking kept losing :( ... but that was because I forgot 
+    I had to call "uno" when playing uno... I kept typing call in the terminal. So, If you'd want you could 
+    do a little description/rule thing in the beginning so that people who don't know how to play uno can win!!
+    Also, does the computer ever win? purely just curious.
+    I think it was really cool how you had comments like "you dare to challenge me?"
+
+    Also, I think putting in more spacing above and/or below would be nice. I think because there are just so many
+    words that for me personally it looks like a lot is going on. I will say, that after playing for awhile 
+    you get used to the format.
+
+    Another small thing, i think you could put your cards vertically and maybe it might be easier to look at. 
+
+    All in all, AMAZING JOB!!! just super small things that you totally don't have to do!! keep it up!!! you're literally so smart!!  
+    */
     
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);

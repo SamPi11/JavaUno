@@ -91,9 +91,11 @@ public class Hand {
                     if (card3.getColor().equals("wild")) {      
                         int newcolorChoice = rand.nextInt(4);
                         newColor = colors[newcolorChoice];
-                        playedCard.setColor(card3.getColor());
+                        playedCard.setColor(card3.getColor());  // (jude) I think this is the source of the computer 'wild' issue
+                                                                // (jude) may need to set cardInPlay's color to the randomly chosen color
                         playedCard.setValue(card3.getValue());
-                        //playedCard.setColor(newColor);
+                        //playedCard.setColor(newColor);        // (jude) unsure why this was commented out - uncommented to set playedCard color to new color 
+                                        // (jude) nevermind - I see that it's unnecessary here w/ the previous setColor
                         card3.setColor("");
                         card3.setValue(-1);
                         foundCard = true;
@@ -145,6 +147,7 @@ public class Hand {
                     String newColor = input.nextLine();
                     String newColorLower = newColor.toLowerCase();
                     //if (checkCardColor(newColorLower)) {              //I'm currently implementing a check that the Player inputs a valid color here.
+                    // (jude) this check is definitely important - method could return true if the color matches any of the card colors
                         playedCard.setColor(card.getColor());
                         playedCard.setValue(card.getValue());
                         playedCard.setColor(newColorLower);
@@ -158,7 +161,7 @@ public class Hand {
                         break;
                     //}
                     //else {
-                        
+                                        // (jude) else could just give an 'invalid input' message then prompt again
                     //}
                 }
             }

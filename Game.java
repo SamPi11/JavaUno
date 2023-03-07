@@ -1,4 +1,11 @@
 //Run this class to play the game.
+
+// (jude) one problem I am unsure of how to fix is that whenever the computer plays a wild, it announces the new color
+// but it then states "The current card in play is a (player's previous card)"
+// the game progresses as if the computer hadn't played any card, but this means it is unable to play wild cards correctly
+// I think the bug is in the if statement beginning line 91 in Hand.java - I think cardInPlay needs to be set
+
+
 import java.util.Scanner;
 
 public class Game {

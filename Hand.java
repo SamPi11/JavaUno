@@ -93,7 +93,8 @@ public class Hand {
                         newColor = colors[newcolorChoice];
                         playedCard.setColor(card3.getColor());
                         playedCard.setValue(card3.getValue());
-                        //playedCard.setColor(newColor);
+                        cardInPlay.setColor(newColor);              //See if this fixes wild bug
+                        cardInPlay.setValue(card3.getValue());
                         card3.setColor("");
                         card3.setValue(-1);
                         foundCard = true;
@@ -109,10 +110,9 @@ public class Hand {
         }
         if (foundCard) {        //Prints out what card the AI played if it played one.
             System.out.print("The Computer played a " + playedCard + " - ");
-            if (playedCard.getColor().equals("wild")) {     //Special print statements for wild to announce new color.
-                playedCard.setColor(newColor);
+            if (cardInPlay.getValue() == -2) {     //Special print statements for wild to announce new color.
                 System.out.print("The next card to play must be ");
-                System.out.println(playedCard.getColor());
+                System.out.println(cardInPlay.getColor());
                 System.out.println();
             }
            
@@ -141,10 +141,15 @@ public class Hand {
         if (colorChoiceLower.equals("wild")) {      //If Player plays a wild, prompts for new color to play on.
             for (Card card : this.cards) {
                 if (card.getColor().equals("wild")) {
+                    boolean validColor = false;
+                    String newColorLower = "";
+                    do {
                     System.out.print("What's the new color? ");
                     String newColor = input.nextLine();
-                    String newColorLower = newColor.toLowerCase();
-                    //if (checkCardColor(newColorLower)) {              //I'm currently implementing a check that the Player inputs a valid color here.
+                    newColorLower = newColor.toLowerCase();
+                    validColor = checkCardColor(newColorLower);
+                    } while (validColor == false);
+                                                                  //I'm currently implementing a check that the Player inputs a valid color here.
                         playedCard.setColor(card.getColor());
                         playedCard.setValue(card.getValue());
                         playedCard.setColor(newColorLower);
@@ -156,10 +161,6 @@ public class Hand {
                         System.out.println();
                         validCard = true;
                         break;
-                    //}
-                    //else {
-                        
-                    //}
                 }
             }
         }
@@ -288,7 +289,14 @@ public class Hand {
         System.out.print("Uh oh, you only have one card left. Don't you have something to say? ");
         String response = input.nextLine();
         String responseLower = response.toLowerCase();
-        if (responseLower.substring(0, 3).equals("uno")) {      //Will accept "uno" in any form of capitalization and with any punctuation afterwards, as long as first three characters are "uno"
+        if (responseLower.length() < 3) {
+            System.out.println("Haha, caught you! Draw 2!");
+            System.out.println();
+            this.drawCard();
+            this.drawCard();
+            cardCount = cardCount + 2;
+        }
+        else if (responseLower.substring(0, 3).equals("uno")) {      //Will accept "uno" in any form of capitalization and with any punctuation afterwards, as long as first three characters are "uno"
             System.out.println("Nice catch");
             System.out.println();
         }
@@ -313,11 +321,24 @@ public class Hand {
             System.out.print("(Quick! Type 'call' to catch the computer. It didn't call uno!) ");
             String response = input.nextLine();
             String responseLower = response.toLowerCase();
-            if (responseLower.substring(0, 4).equals("call")) {
+            if (responseLower.length() < 4) {
+                System.out.println("Oops, my bad. But you didn't catch me ;)");
+            }
+            else if (responseLower.substring(0, 4).equals("call")) {
                 System.out.println("Dang, you got me.");
                 this.drawCard();
                 this.drawCard();
                 cardCount = cardCount + 2;
+                if (cardCount == 1) {       //Prints AI's remaining cards
+                    System.out.println("The Computer has " + cardCount + " card in hand.");
+                }
+                else {       //Prints AI's remaining cards
+                    System.out.println("The Computer has " + cardCount + " cards in hand.");
+                }
+                System.out.println();
+            }
+            else {
+                System.out.println("Oops, my bad. But you didn't catch me ;)");
                 if (cardCount == 1) {       //Prints AI's remaining cards
                     System.out.println("The Computer has " + cardCount + " card in hand.");
                 }
